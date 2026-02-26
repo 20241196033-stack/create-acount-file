@@ -1,1 +1,4 @@
 # create-acount-file
+account.htmlというファイルの中に認証するためのシステムが入っています。
+gameAreaclassがついているdivタグの中のh1タグやaタグの
+中身は変えてどうぞ。
