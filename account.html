@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body{
+            background-color:lawngreen;
+        }
+        #loginArea{
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ★ ログイン画面 -->
+    <div id="loginArea">
+        <h2>ログイン</h2>
+        <input type="text" id="userName" placeholder="名前を入力">
+        <button id="loginBtn">ログイン</button>
+    </div>
+
+    <!-- ★ ゲーム画面（最初は非表示） -->
+    <div id="gameArea" style="display:none;">
+        <h1>ゲームができるようになりました！</h1>
+        <a href="https://games.sub.jp"></a>
+    </div>
+
+    <script>
+        // ★ すでにログインしているかチェック
+        const savedName = localStorage.getItem("userName");
+
+        if(savedName){
+            // 2回目以降：ログイン画面を隠してゲームへ
+            document.getElementById("loginArea").style.display = "none";
+            document.getElementById("gameArea").style.display = "block";
+        }
+
+        // ★ ログインボタン
+        document.getElementById("loginBtn").addEventListener("click", function(){
+            const name = document.getElementById("userName").value;
+
+            if(name === ""){
+                alert("名前を入力してね");
+                return;
+            }
+
+            // 名前を保存（次回からログイン不要）
+            localStorage.setItem("userName", name);
+
+            // 画面切り替え
+            document.getElementById("loginArea").style.display = "none";
+            document.getElementById("gameArea").style.display = "block";
+        });
+    </script>
+
+</body>
+</html>
