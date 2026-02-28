@@ -21,40 +21,58 @@
         <h2>ログイン</h2>
         <input type="text" id="userName" placeholder="名前を入力">
         <button id="loginBtn">ログイン</button>
+        <br><br>
+        <button id="forgotBtn">名前を忘れた？</button>
+        <p id="forgotResult"></p>
     </div>
 
     <!-- ★ ゲーム画面（最初は非表示） -->
     <div id="gameArea" style="display:none;">
-        <h1>ゲームができるようになりました！</h1>
-        <a href="https://games.sub.jp"></a>
+        <h1>ゲームができるようになりました！！</h1>
+        <p id="welcome"></p>
+        <p id="welcomeEng"></p>
     </div>
 
     <script>
-        // ★ すでにログインしているかチェック
-        const savedName = localStorage.getItem("userName");
-
-        if(savedName){
-            // 2回目以降：ログイン画面を隠してゲームへ
-            document.getElementById("loginArea").style.display = "none";
-            document.getElementById("gameArea").style.display = "block";
-        }
+        const welcome = document.getElementById("welcome");
+        const welocmeEng = document.getElementById("welcomeEng");
 
         // ★ ログインボタン
         document.getElementById("loginBtn").addEventListener("click", function(){
-            const name = document.getElementById("userName").value;
+    const name = document.getElementById("userName").value;
 
-            if(name === ""){
-                alert("名前を入力してね");
-                return;
+    if(name === ""){
+        alert("名前を入力してね");
+        return;
+    }
+
+    // 名前を保存
+    localStorage.setItem("lastUserName", name);
+
+    // ようこそメッセージ
+    welcome.textContent = "ようこそ！" + name + "さん";
+    welocmeEng.textContent = "welcome to " + name;
+
+
+    // 画面切り替え
+    document.getElementById("loginArea").style.display = "none";
+    document.getElementById("gameArea").style.display = "block";
+});
+
+
+        // ★ 「名前を忘れた？」ボタン
+        document.getElementById("forgotBtn").addEventListener("click", function(){
+            const saved = localStorage.getItem("lastUserName");
+
+            if(saved){
+                document.getElementById("forgotResult").textContent =
+                    "前回の名前は「" + saved + "」です。";
+            } else {
+                document.getElementById("forgotResult").textContent =
+                    "まだ名前が登録されていません。";
             }
-
-            // 名前を保存（次回からログイン不要）
-            localStorage.setItem("userName", name);
-
-            // 画面切り替え
-            document.getElementById("loginArea").style.display = "none";
-            document.getElementById("gameArea").style.display = "block";
         });
+       
     </script>
 
 </body>
